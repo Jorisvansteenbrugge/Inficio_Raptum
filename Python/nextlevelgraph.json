@@ -1,0 +1,57 @@
+[
+    {
+        "imports": [], 
+        "name": "flare.compound.1-butanol", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Acetaldehyde", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Acetamide", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Methanol", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Nitrobenzene", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.h-89", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Jay", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.Methanol", 
+            "flare.compound.Nitrobenzene", 
+            "flare.compound.Acetamide", 
+            "flare.compound.1-butanol"
+        ], 
+        "name": "flare.organism.Danio rerio", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.1-butanol", 
+            "flare.compound.h-89", 
+            "flare.compound.Jay", 
+            "flare.compound.Acetaldehyde"
+        ], 
+        "name": "flare.organism.Caenorhabditis elegans", 
+        "size": 3000
+    }
+]

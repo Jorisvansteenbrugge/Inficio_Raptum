@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<!--
+            Dopetrope 2.5 by HTML5 UP
+            html5up.net | @n33co
+            Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+        -->
+<html>
+
+<head>
+	<title>Visualization</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.dropotron.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/skel.min.js"></script>
+	<script src="js/skel-panels.min.js"></script>
+	<script type="text/javascript" src="json2.min.js"></script>
+	<script type="text/javascript" src="/control/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/vis.js"></script>
+    <script type="text/javascript" src="js/graphData.js"></script>
+	<link type="text/css" rel="stylesheet" href="vis.css">
+
+	<link rel="icon" type="image/vnd.microsoft.icon"
+             href="images\logo.jpg" />
+	<style>
+table,th,td
+{
+border:1px solid black;
+border-collapse:collapse;
+}
+th,td
+{
+padding:5px;
+}
+th
+{
+text-align:center;
+}
+</style>		 
+			 
+	<style type="text/css">
+		html,
+		body {
+			font: 10pt arial;
+		}
+		#mygraph {
+			width: 1000px;
+			height: 500px;
+			border: 1px solid lightgray;
+		}
+	</style>
+
+
+	<noscript>
+		<link rel="stylesheet" href="css/skel-noscript.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-desktop.css" />
+	</noscript>
+
+	
+<%import sys
+sys.path.append('/home/bi2_pg6/public_html/Inficio Raptum/Python')
+import mysql.connector
+a=""
+title=''
+pubid=''
+abstract=''
+pub_date=""
+conn = mysql.connector.Connect(host='localhost',user='bi2_pg6',
+				                        			password='blaat1234',database='InfiRap')
+c = conn.cursor()
+c.execute ("""select * from Article""")
+for row in c:
+	title+=row[2]+"++"
+	pubid+=row[0]+"++"
+	abstract+=row[3]+"++"
+	pub_date+= str(row[1])+"++"
+c.close()
+# end
+
+zoekTerm = form["search"]
+import searchOrgComTest
+searchOrgComTest.index(zoekTerm)
+%>
+
+<script>
+var lijst = '<%=title%>';
+var titles = lijst.split("++");
+titles.pop();
+var lijst = '<%=pubid%>';
+var pubids = lijst.split("++");
+pubids.pop();
+var lijst = '<%=abstract%>';
+var abstracts = lijst.split("++");
+var lijst = '<%=pub_date%>';
+var pub_dates = lijst.split("++");
+abstracts.pop();
+
+</script>
+
+	<script type="text/javascript">
+		//declaratie variabelen
+		var nodes = [];
+		var orgimg = "images/organism.jpg";
+		var compimg = "images/compound.jpg";
+		var edges = [];
+		var graph = null;
+		var pathOfFileToRead = null;
+		var array = [];
+		var dict = {};
+		var values = null;
+		var id1 = null;
+		var id2 = null;
+		var val = null;
+		var counter = 0;	
+		var DIR = 'img/graph/';
+		var nod= [];
+    	var edg= [];
+		var nodefile = null;
+		var edgefile = null;
+		var searchCheck= '<%=zoekTerm%>';
+		var notConnected=[];
+		
+		function createNodes() { //Functie voor het aanmaken van de nodes
+	
+	nodefile = "Python/nodesSearch.3j";
+	edgefile = "Python/edgesSearch.3j";
+	var pathOfFileToRead = nodefile; //bestand in .3j opmaak
+	var contentsOfFileAsString = FileHelper.readStringFromFileAtPath(pathOfFileToRead); //call aan de filehelper function voor het uilezen van .3j
+	var mainlist = contentsOfFileAsString.split(":");
+	var compoundlist = mainlist[0].split(">");
+	compoundlist.shift();
+	for (var i = 1; i <= compoundlist.length; i += 1) {
+		counter += 1;
+		var ids = i //id voor de nodes is gelijk aan het aantal waardes in de array
+		var labels = mainlist[0].split("*")[i].split("#")[0]; //labels voor de nodes worden uit het bestand gehaald
+		var values = mainlist[0].split("#")[i].split("@")[0]; // waardes/aantal voorkomens voor nodes worden uit het bestand gehaald
+		var title = mainlist[0].split("@")[i].split("+")[0]; // titel voor de nodes worden uit het bestand gehald
+		nodes.push({ // functie die de  voorgaande variabelen in een dictionary voegt en deze toevoegd aan de nodes arraylist met de .push methode
+			id: ids,
+			value: parseInt(values),
+			label: labels,
+			title: title,
+			shape: 'dot'
+		});
+	}
+	var organismlist = mainlist[1].split(">");
+	organismlist.shift();
+	for (var i = 1; i <= organismlist.length; i += 1) {
+		var ids = counter + i //id voor de nodes is gelijk aan het aantal waardes in de array
+		var labels = mainlist[1].split("*")[i].split("#")[0]; //labels voor de nodes worden uit het bestand gehaald;
+		var values = mainlist[1].split("#")[i].split("@")[0]; // waardes/aantal voorkomens voor nodes worden uit het bestand gehaald
+		var title = mainlist[1].split("@")[i].split("+")[0]; // titel voor de nodes worden uit het bestand gehald
+		nodes.push({ // functie die de  voorgaande variabelen in een dictionary voegt en deze toevoegd aan de nodes arraylist met de .push methode
+			id: ids,
+			value: parseInt(values),
+			label: labels,
+			title: title,
+			shape: 'triangle'
+		});
+	}
+	createEdges();
+
+}
+
+
+
+function createEdges() { //functie voor het aanmaken van de edges
+	var pathOfFileToRead1 = edgefile; //bestand in .3j opmaak
+	var contentsOfFileAsString1 = FileHelper.readStringFromFileAtPath(pathOfFileToRead1);
+	var array2 = contentsOfFileAsString1.split(">");
+	var waarde = null;
+	var a = null;
+	array2.shift();
+	for (var i = 1; i <= array2.length; i += 1) {
+		id1 = contentsOfFileAsString1.split(">")[i].split("*")[0];
+		id2 = contentsOfFileAsString1.split("*")[i].split("#")[0];
+		waarde = contentsOfFileAsString1.split("@")[i].split("%")[0];
+		parseInt(waarde);
+		if (waarde == 0) {
+			a = 1;
+		} else {
+
+			edges.push({
+				from: parseInt(id1),
+				to: parseInt(id2),
+				value: parseInt(waarde)
+				
+			});
+		}
+
+
+	}
+	drawGraph();
+
+
+
+}
+
+
+function FileHelper() {} { //voor het uitlezn van het bestand
+	FileHelper.readStringFromFileAtPath = function (pathOfFileToReadFrom) {
+		var request = new XMLHttpRequest();
+		request.open("GET", pathOfFileToReadFrom, false);
+		request.send(null);
+		var returnValue = request.responseText;
+
+		return returnValue;
+	}
+}
+		
+function drawGraph() {
+			// Instantiate our graph object.
+			var container = document.getElementById('mygraph');
+			var data = {
+				nodes: nodes,
+				edges: edges
+			};
+
+			var options = {
+				width: '1000px',
+				height: '500px',
+				edges: {
+					color: '#97C2FC'
+				},
+				//dataManipulation: true,
+				//	clustering: true,
+				initiallyVisible: true
+				
+	
+			};
+		
+		
+			graph = new vis.Graph(container, data, options);
+			graph.on('doubleClick', function (properties) {//Double click event on nodes
+			document.getElementById("tabbeldiv").innerHTML = '\
+			   <table id="itemList">\
+			   		<thead>\
+			   			<tr>\
+			   				<td><b>Title</b></td>\
+							<td><b>Publication date</b></td>\
+			   				<td><b>Pubmed_ID</b></td>\
+			   				<td><b>Abstract</b></td>\
+			   			</tr>\
+			   		</thead>\
+			   		<tbody>\
+					</tbody>\
+			   </table>';
+				var id = properties.nodes;
+				var selected = nodes[id - 1]["title"].split(",");
+				selected.pop();
+				var rows = "";
+				var items = [];
+				
+				
+				
+			   for (var i = 0; i <= titles.length; i += 1) {
+				   	if(pubids[i]!=undefined){
+							var pubid = pubids[i].replace(" ","");
+							//var pubid = pubid[i].replace(",","");
+							var url = "http://www.ncbi.nlm.nih.gov/pubmed/"+pubid
+							
+							if(selected.indexOf(pubid)>=0){
+								var date = pub_dates[i];
+								var tit = titles[i];
+								var abst = abstracts[i];
+								items.push({Title: tit, Pub_date: date,	Pubmed_ID: url, Abstract: abst, ID_los: pubid});
+							}
+							else{}
+						}
+					
+			   }
+
+					$.each(items, function(){
+   				 rows += "<tr><td>" + this.Title + "</td><td>" + this.Pub_date + "</td><td>" + "<a href=" +this.Pubmed_ID+" target='_blank'>" +this.ID_los+ "</a>" + "</td><td>" + this.Abstract + "</td></tr>";
+				}
+				);
+				
+					$( rows ).appendTo( "#itemList tbody" );		
+					});
+					
+					}
+			
+	</script>
+
+
+
+
+
+	<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+</head>
+
+<body onload="createNodes();">
+
+	<!-- Header Wrapper -->
+	<div id="header-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="12u">
+
+					<!-- Header -->
+					<section id="header">
+
+						<!-- Logo -->
+						<h1><a href="index.html"><img src="images\logo.jpg" alt="logo" width="196" height="176"></a> </h1>
+
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a>
+								</li>
+                                <li><a href="graphNew.psp">Visualization</a>
+								</li>
+								<li class="current_page_item"><a href="http://cytosine.nl/~bi2_pg6/Inficio%20Raptum/visualization.psp?search=">Specific Visualization</a>
+								</li>
+								<li>
+									<a href="http://cytosine.nl/~bi2_pg6/Inficio%20Raptum/Search_New.psp?Substance=&Organism=">Search</a>
+									
+								</li>
+								<li><a href="get-started.html">Get started</a>
+								</li>
+								<li><a href="about-us.html">About us</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+					</section>
+                
+                Search for an specific organism or compound: 
+                <form name="zoekTerm" method="get">  
+                    <input type="text" id ='zoekbalk' name="search" value="">
+                    <input id="clickMe" class= "button" type="submit" value="Search"/>
+                </form>
+                
+                
+                
+                
+					<div id="mygraph"></div>
+					<div id="abstract"></div>  
+                    <div id="test"></div>            
+        			<div id="tabbeldiv"></div>
+        	<br>
+            
+				</div>
+				
+            </div>
+		</div>
+	</div>
+   
+</body>
+</html>

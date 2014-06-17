@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<!--
+          Dopetrope 2.5 by HTML5 UP
+          html5up.net | @n33co
+          Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+      -->
+<html>
+
+<head>
+	<title>Get started</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic" rel="stylesheet" />
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.dropotron.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/skel.min.js"></script>
+	<script src="js/skel-panels.min.js"></script>
+	<noscript>
+		<link rel="stylesheet" href="css/skel-noscript.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-desktop.css" />
+	</noscript>
+
+	<link rel="icon" type="image/vnd.microsoft.icon" href="images\logo.jpg" />
+	<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+</head>
+
+<body class="no-sidebar">
+
+	<!-- Header Wrapper -->
+	<div id="header-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="12u">
+
+					<!-- Header -->
+					<section id="header">
+
+						<!-- Logo -->
+						<h1><a href="index.html"><img src="images\logo.jpg" alt="logo" width="196" height="176"></a></h1>
+
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a>
+								</li>
+                                <li ><a href="graphNew.psp">Visualization</a>
+								</li>
+								<li><a href="http://cytosine.nl/~bi2_pg6/Inficio%20Raptum/visualization.psp?search=">Specific Visualization</a>
+								</li>
+								<li>
+									<a href="http://cytosine.nl/~bi2_pg6/Inficio%20Raptum/Search_New.psp?Substance=&Organism=">Search</a>
+								</li>
+								<li class="current_page_item"><a href="get-started.html">Get started</a>
+								</li>
+								<li><a href="about-us.html">About us</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+					</section>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Wrapper -->
+	<div id="main-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="12u">
+
+					<!-- Portfolio -->
+					<section>
+						<div>
+							<div class="row">
+								<div class="12u skel-cell-important">
+
+									<!-- Content -->
+									<article class="box is-post">
+
+										<header>
+											<h2>Get started</h2>
+                                            <br />
+                                            <p> Click on the button above to get instructions about the according functions</p>
+											<span class="byline"></span>
+										</header>
+										<script type="text/javascript">
+											function toggleMe(a) {
+												var e = document.getElementById(a);
+												if (!e) return true;
+												if (e.style.display == "none") {
+													e.style.display = "block"
+												} else {
+													e.style.display = "none"
+												}
+												return true;
+											}
+										</script>
+					
+                    
+                     
+                    
+                    
+										<input type="button" class="button" onclick="return toggleMe('para1')" value="The visualization function">
+										<br>
+										<p id="para1" style="display:none">
+											<br />The visualization function can be used to see connections between search terms. 
+											<br />To visualize the results, the graph network can be used. 
+                                            By using this kind of network it is self-explanatory which of the, for example, compounds are connected and which are not.
+                                            
+                                        <img src="images/graph.JPG" width="339" height="338"> <img src="images/pijl.jpg" width="196" height="163"> <img src="images/highlighted.png" width="339" height="338">                         
+                                            
+										<br />By hovering your mouse over a name, the graph will highlight the lines to which that name is connected. 
+                                        When you click twice on a name, you will be forwarded to the specific visualisation page. An automatic graph search of the selected name will be shown here.
+					  </p>
+										<br>
+										
+      <input type="button" class="button alt" onclick="return toggleMe('para2')" value="Visualization Specific"><br>
+      <div id="para2" style="display:none">
+      When you nevigate to this page there will be no graph on the first instance. Once you perform a search, a graph will appear. 
+      This graph will contain the specific compound or organism you've searched for, with the associated compounds or organisms depending on the search you performed.
+      <br />
+      <img src="images/visSpec.JPG" width="339" height="338">
+      When you click twice on a oonnection, the shared articles will be shown below.
+      
+      </div>
+      <br>
+      
+      <input type="button" class="button alt" onclick="return toggleMe('para3')" value="Search"><br>
+      <div id="para3" style="display:none">
+      The goal of the search page is to take the terms you inserted, and search the accordin Pubmed articles. The website will automaticly put every article in our database, and you can use it in the (specific) visualisation. </br>
+      When you navigat to the page, there will be three buttons. Substance, Organism, and Submit. You click on the buttons what search terms you want to fill in. There will appear a inputfield, where you can insert your searchterm.
+      </br>
+      If you are done filling in all the terms, you can press the submit button, and the page will do the rest for you. After the page is done loading, you can go to the (specific) visualisation to see the results.
+      </div>
+      
+
+
+					</section>
+
+					</article>
+
+					</div>
+					</div>
+					</div>
+					</section>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+
+</html>

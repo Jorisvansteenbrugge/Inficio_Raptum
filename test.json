@@ -1,0 +1,82 @@
+[
+    {
+        "imports": [], 
+        "name": "flare.compound.Ethanamide", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Glyceryltrinitraat", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Methanol", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Isoxaben", 
+        "size": 3000
+    }, 
+    {
+        "imports": [], 
+        "name": "flare.compound.Formaldehyde", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.Methanol", 
+            "flare.compound.Ethanamide", 
+            "flare.compound.Isoxaben", 
+            "flare.compound.Formaldehyde", 
+            "flare.compound.Glyceryltrinitraat"
+        ], 
+        "name": "flare.organism.Felis silvestris", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.Methanol", 
+            "flare.compound.Ethanamide", 
+            "flare.compound.Isoxaben", 
+            "flare.compound.Formaldehyde", 
+            "flare.compound.Glyceryltrinitraat"
+        ], 
+        "name": "flare.organism.C Elegans", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.Methanol", 
+            "flare.compound.Ethanamide", 
+            "flare.compound.Isoxaben", 
+            "flare.compound.Formaldehyde", 
+            "flare.compound.Glyceryltrinitraat"
+        ], 
+        "name": "flare.organism.Rattus norvegicus", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.Methanol", 
+            "flare.compound.Ethanamide", 
+            "flare.compound.Isoxaben", 
+            "flare.compound.Formaldehyde", 
+            "flare.compound.Glyceryltrinitraat"
+        ], 
+        "name": "flare.organism.Lutra lutra", 
+        "size": 3000
+    }, 
+    {
+        "imports": [
+            "flare.compound.Methanol", 
+            "flare.compound.Ethanamide", 
+            "flare.compound.Isoxaben", 
+            "flare.compound.Formaldehyde", 
+            "flare.compound.Glyceryltrinitraat"
+        ], 
+        "name": "flare.organism.Caenorhabditis elegans", 
+        "size": 3000
+    }
+]
